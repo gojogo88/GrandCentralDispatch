@@ -11,11 +11,22 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
-
+    var window: UIWindow?  //storyboard automatically creates a window in which all the viewControllers are shown. This window needs to know what its initial viewControler is and that gets set in its rootview controller property (see if let tabBarController) and is all handled by the storyboard.
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        //to add another tab via code
+        if let tabBarController = window?.rootViewController as? UITabBarController {
+            //in a single view application template, the root view controller is the viewController, but we embedded it inside a navigationController and then embedded that inside a tabBarController. So our root viewController is a UITabBarController.
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)  //nil means use my current app bundle
+            let vc = storyboard.instantiateViewController(withIdentifier: "NavController")  //this creates our viewController. "NavController" is the storyboard ID of our tabBarController.
+            
+            vc.tabBarItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 1)  //this is the new tab created.
+            
+            tabBarController.viewControllers?.append(vc)  //this adds it to the array and cause it to appear in the tab bar.
+        }
+        
         return true
     }
 

@@ -7,14 +7,42 @@
 //
 
 import UIKit
+import WebKit
 
 class DetailViewController: UIViewController {
-
+    
+    var webView: WKWebView!
+    var detailItem: [String: String]!
+    
+    override func loadView() {
+        
+        webView = WKWebView()
+        view = webView
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-    }
+        //guard sets it so the code exits immediately if critical data is missing. Meaning we dont want this to run if the detailItem isn't set so the guard statement will protect us and just run return if the detailItem is set to nil.
+        guard detailItem != nil else { return }
+            
+            if let body = detailItem["body"] {
+                
+                var html = "<html>"
+                html += "<head>"
+                html += "<meta name=\"viewport\" content\"width=device-width, initial-scale=1\">"
+                html += "<style> body { font-size: 150%; } </style>"
+                html += "</head>"
+                html += "<body>"
+                html += body
+                html += "</body>"
+                html += "<html>"
+                
+                webView.loadHTMLString(html, baseURL: nil)
+            }
+        }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

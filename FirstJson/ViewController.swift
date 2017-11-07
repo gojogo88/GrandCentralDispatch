@@ -23,7 +23,7 @@ class ViewController: UITableViewController {
         
     }
     
-    func fetchJSON() {
+    @objc func fetchJSON() {
         
         let urlString: String
         
@@ -76,7 +76,7 @@ class ViewController: UITableViewController {
 
     }
     
-    func showError() {
+    @objc func showError() {
         
         let ac = UIAlertController(title: "Loading error", message: "There was a problem loading the feed; please check your connection and try again.", preferredStyle: .alert)
         
